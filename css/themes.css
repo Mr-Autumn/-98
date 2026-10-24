@@ -1,0 +1,1578 @@
+/* ============================================================
+   瓜田98 · 主题层
+   Win11 主题覆盖 + Win11 开始菜单 + 响应式
+   说明：Win98 主题不允许圆角/渐变/柔光，这里只服务「穿越到 2026」。
+   ============================================================ */
+
+/* ---------- Win11 全局变量 ---------- */
+body.theme-win11 {
+  --taskbar-h: 52px;
+  --c-gray: #f3f3f3;
+  --c-gray-light: #ffffff;
+  --c-gray-mid: #d0d0d0;
+  --c-gray-dark: #cfcfcf;
+  --c-black: #1b1b1b;
+  --c-white: #ffffff;
+  --c-navy: #0067c0;
+  --c-navy-bright: #0078d4;
+  --c-navy-soft: #4aa3e8;
+  --c-teal: #0f6cbd;
+  --c-red: #c42b1c;
+  --c-yellow: #ffffff;
+  --font-ui: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-mono: "Cascadia Mono", "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
+  background: #0b2a4a;
+  color: #1b1b1b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 桌面 ---------- */
+body.theme-win11 .desktop {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(118, 196, 255, 0.8), transparent 44%),
+    radial-gradient(circle at 74% 72%, rgba(150, 118, 255, 0.55), transparent 46%),
+    radial-gradient(circle at 52% 48%, rgba(28, 112, 190, 0.65), transparent 60%),
+    linear-gradient(140deg, #0a2544 0%, #10416e 46%, #081a31 100%);
+}
+
+body.theme-win11 .desktop-icons {
+  left: 14px;
+  top: 12px;
+  gap: 10px 20px;
+}
+
+body.theme-win11 .desktop-icon {
+  width: 84px;
+  height: 78px;
+  border-radius: 8px;
+  gap: 6px;
+}
+
+body.theme-win11 .desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.theme-win11 .desktop-icon .desktop-icon-image {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
+}
+
+body.theme-win11 .desktop-icon .desktop-icon-label {
+  max-width: 82px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+body.theme-win11 .desktop-icon.selected {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+body.theme-win11 .desktop-icon.selected .desktop-icon-label,
+body.theme-win11 .desktop-icon:focus-visible .desktop-icon-label {
+  background: transparent;
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+body.theme-win11 .desktop-icon.selected .desktop-icon-image {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
+}
+
+/* ---------- 任务栏 ---------- */
+body.theme-win11 .taskbar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--taskbar-h);
+  padding: 6px 10px;
+  gap: 6px;
+  background: rgba(243, 243, 243, 0.84);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  backdrop-filter: blur(28px) saturate(1.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-win11 .start-button {
+  min-width: 46px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 600;
+  font-size: 12px;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .start-button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+body.theme-win11 .start-button:active,
+body.theme-win11 .start-button.open {
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.09);
+  box-shadow: none;
+}
+
+body.theme-win11 .start-flag {
+  transform: none;
+  opacity: 0.9;
+}
+
+body.theme-win11 .start-flag i:nth-child(1) { background: #e94343; }
+body.theme-win11 .start-flag i:nth-child(2) { background: #2c9a3b; }
+body.theme-win11 .start-flag i:nth-child(3) { background: #2b6fcf; }
+body.theme-win11 .start-flag i:nth-child(4) { background: #efc62c; }
+
+body.theme-win11 .taskbar-grip {
+  display: none;
+}
+
+body.theme-win11 .task-buttons {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+body.theme-win11 .task-button {
+  flex: 0 1 150px;
+  height: 36px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.theme-win11 .task-button:hover {
+  background: rgba(255, 255, 255, 0.66);
+}
+
+body.theme-win11 .task-button.active {
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 -2px 0 var(--c-navy);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+body.theme-win11 .task-button-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+body.theme-win11 .task-button-label {
+  font-size: 11.5px;
+}
+
+body.theme-win11 .taskbar-tray {
+  height: 36px;
+  padding: 0 4px;
+  gap: 2px;
+  box-shadow: none;
+  background: transparent;
+}
+
+body.theme-win11 .tray-button {
+  height: 30px;
+  min-width: 26px;
+  border-radius: 6px;
+  border: 0;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .tray-button:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: transparent;
+}
+
+body.theme-win11 .tray-button:active {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
+body.theme-win11 .tray-online {
+  color: #0b5a1f;
+}
+
+body.theme-win11 .tray-1024 {
+  border-radius: 6px;
+  border: 0;
+  background: #ffe100;
+  box-shadow: none;
+  color: #4a3b00;
+}
+
+body.theme-win11 .tray-clock {
+  min-width: 58px;
+  font-size: 11.5px;
+}
+
+/* Win11 下不再使用 Win98 开始菜单（由 win11-start-menu 接管） */
+body.theme-win11 .start-menu {
+  border-radius: 12px;
+  background: rgba(247, 247, 247, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+}
+
+body.theme-win11 .start-sidebar {
+  display: none;
+}
+
+body.theme-win11 .start-item {
+  border-radius: 6px;
+  min-height: 38px;
+  padding: 6px 10px;
+}
+
+body.theme-win11 .start-item:hover,
+body.theme-win11 .start-item.open {
+  background: rgba(0, 0, 0, 0.07);
+  color: #1b1b1b;
+}
+
+body.theme-win11 .start-item:hover .start-desc,
+body.theme-win11 .start-item.open .start-desc {
+  color: #666;
+}
+
+body.theme-win11 .start-separator {
+  border-color: #e2e2e2;
+  box-shadow: none;
+}
+
+body.theme-win11 .start-footer {
+  color: #777;
+  border-top-color: #e2e2e2;
+  box-shadow: none;
+}
+
+/* ---------- Win11 开始菜单 ---------- */
+.win11-start-menu {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--taskbar-h) + 10px);
+  transform: translateX(-50%);
+  z-index: 55000;
+  width: min(540px, calc(100vw - 20px));
+  max-height: min(560px, calc(100vh - 90px));
+  overflow: auto;
+  padding: 14px;
+  color: #1b1b1b;
+  background: rgba(243, 243, 243, 0.94);
+  -webkit-backdrop-filter: blur(34px) saturate(1.6);
+  backdrop-filter: blur(34px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.34), 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.w11-start-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 6px 12px;
+}
+
+.w11-start-head strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.w11-start-head span {
+  font-size: 10.5px;
+  color: #666;
+}
+
+.w11-start-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.w11-start-item {
+  min-width: 0;
+  padding: 9px 6px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: #1b1b1b;
+  text-align: center;
+}
+
+.w11-start-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.w11-start-item:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.w11-start-item .w11-start-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.w11-start-item .w11-start-label {
+  max-width: 100%;
+  font-size: 11px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.w11-start-foot {
+  margin-top: 12px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.w11-start-foot .spacer {
+  flex: 1;
+}
+
+.w11-start-foot-btn {
+  height: 32px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #1b1b1b;
+  font-size: 11.5px;
+}
+
+.w11-start-foot-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.w11-start-foot-btn .w11-foot-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.w11-start-foot-btn.w11-power {
+  color: #9b1c12;
+}
+
+/* ---------- 窗口 ---------- */
+body.theme-win11 .window {
+  padding: 0;
+  background: #f7f7f7;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.32), 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-win11 .window-frame {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+body.theme-win11 .titlebar {
+  height: 34px;
+  flex-basis: 34px;
+  padding: 0 4px 0 12px;
+  background: #f7f7f7;
+  color: #1b1b1b;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+  cursor: move;
+}
+
+body.theme-win11 .window.active .titlebar {
+  background: #f7f7f7;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .window-title {
+  gap: 7px;
+}
+
+body.theme-win11 .window-title-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+body.theme-win11 .window-title-text {
+  font-size: 12.5px;
+  line-height: 18px;
+}
+
+body.theme-win11 .window-controls {
+  gap: 2px;
+}
+
+body.theme-win11 .window-control {
+  width: 30px;
+  height: 26px;
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.theme-win11 .window-control:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+body.theme-win11 .window-control:active {
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+}
+
+body.theme-win11 .window-control[data-win-action="close"]:hover {
+  background: #c42b1c;
+}
+
+body.theme-win11 .glyph-min {
+  background: #1b1b1b;
+}
+
+body.theme-win11 .glyph-max {
+  border-color: #1b1b1b;
+}
+
+body.theme-win11 .glyph-close::before,
+body.theme-win11 .glyph-close::after {
+  background: #1b1b1b;
+}
+
+body.theme-win11 .window-control[data-win-action="close"]:hover .glyph-close::before,
+body.theme-win11 .window-control[data-win-action="close"]:hover .glyph-close::after {
+  background: #fff;
+}
+
+body.theme-win11 .window-body {
+  background: #f9f9f9;
+}
+
+body.theme-win11 .window.maximized {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  box-shadow: none;
+}
+
+/* ---------- 通用控件 ---------- */
+body.theme-win11 .btn98 {
+  min-height: 27px;
+  padding: 4px 12px;
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+  background: #fdfdfd;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  color: #1b1b1b;
+}
+
+body.theme-win11 .btn98:hover {
+  background: #f3f3f3;
+  border-color: #bdbdbd;
+}
+
+body.theme-win11 .btn98:active,
+body.theme-win11 .btn98.pressed {
+  padding: 4px 12px;
+  background: #ededed;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+body.theme-win11 .btn98:disabled {
+  color: #a6a6a6;
+  text-shadow: none;
+  background: #f7f7f7;
+}
+
+body.theme-win11 .btn98.default {
+  border-color: var(--c-navy);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(0, 103, 192, 0.35);
+}
+
+body.theme-win11 .btn98.small {
+  min-height: 22px;
+  padding: 1px 8px;
+}
+
+body.theme-win11 .field98 {
+  height: 26px;
+  padding: 3px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: none;
+}
+
+body.theme-win11 .field98:focus {
+  border-color: var(--c-navy);
+  box-shadow: 0 0 0 1px rgba(0, 103, 192, 0.35);
+}
+
+body.theme-win11 textarea.field98 {
+  padding: 7px 9px;
+  border-radius: 6px;
+}
+
+body.theme-win11 select.field98 {
+  padding-right: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23555' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 7px center;
+  background-repeat: no-repeat;
+}
+
+body.theme-win11 input[type="checkbox"].check98 {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #9a9a9a;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+body.theme-win11 input[type="checkbox"].check98:checked {
+  background-color: var(--c-navy);
+  border-color: var(--c-navy);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M3.5 8.5l3 3 6-6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+body.theme-win11 input[type="radio"].check98 {
+  border-radius: 50%;
+  box-shadow: none;
+  border: 1px solid #9a9a9a;
+}
+
+body.theme-win11 ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+body.theme-win11 ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.theme-win11 ::-webkit-scrollbar-thumb {
+  background: #c3c3c3;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: padding-box;
+  box-shadow: none;
+}
+
+body.theme-win11 ::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+}
+
+body.theme-win11 ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------- 应用通用外观 ---------- */
+body.theme-win11 .app {
+  background: #f7f7f7;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .app-toolbar {
+  min-height: 34px;
+  padding: 5px 8px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+}
+
+body.theme-win11 .app-statusbar {
+  min-height: 26px;
+  margin: 4px 6px 6px;
+  padding: 3px 8px;
+  background: #f3f3f3;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  box-shadow: none;
+  color: #444;
+}
+
+body.theme-win11 .app-statusbar .status-cell {
+  border-left-color: #e0e0e0;
+  border-right-color: transparent;
+}
+
+body.theme-win11 .pill-tag {
+  padding: 2px 7px;
+  background: #eef4fb;
+  border: 1px solid #d6e4f3;
+  border-radius: 10px;
+  box-shadow: none;
+  color: #155699;
+}
+
+body.theme-win11 .heat-meter i {
+  border-radius: 2px;
+  background: #e3e3e3;
+  box-shadow: none;
+}
+
+body.theme-win11 .heat-meter i.on {
+  background: #d13438;
+  box-shadow: none;
+}
+
+body.theme-win11 .status-badge {
+  border-radius: 9px;
+  border-color: transparent;
+  padding: 0 7px;
+}
+
+body.theme-win11 .status-badge.eaten { background: #dff3e3; color: #107c10; }
+body.theme-win11 .status-badge.waiting { background: #fff4ce; color: #8a6100; }
+body.theme-win11 .status-badge.following { background: #dce9f9; color: #0f5aa8; }
+
+/* ---------- 日历 ---------- */
+body.theme-win11 .calendar-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .calendar-toolbar {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+  padding: 7px 8px;
+}
+
+body.theme-win11 .calendar-toolbar .cal-title {
+  color: #1b1b1b;
+}
+
+body.theme-win11 .calendar-toolbar .cal-title em {
+  color: #777;
+}
+
+body.theme-win11 .cal-grid-wrap {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+body.theme-win11 .cal-weekdays {
+  background: #f6f6f6;
+  border-bottom: 1px solid #ececec;
+  box-shadow: none;
+}
+
+body.theme-win11 .cal-weekdays .sun,
+body.theme-win11 .cal-weekdays .sat {
+  color: #c42b1c;
+}
+
+body.theme-win11 .cal-day {
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  background: #fff;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+body.theme-win11 .cal-day:hover {
+  background: #eef4fb;
+  border-color: #cfe0f5;
+}
+
+body.theme-win11 .cal-day.other-month {
+  opacity: 0.42;
+  background: #fafafa;
+}
+
+body.theme-win11 .cal-day.today {
+  border-color: var(--c-navy);
+  box-shadow: inset 0 0 0 1px var(--c-navy);
+}
+
+body.theme-win11 .cal-day.selected {
+  background: var(--c-navy);
+  border-color: var(--c-navy);
+  color: #fff;
+}
+
+body.theme-win11 .cal-day.selected .day-number {
+  color: #fff;
+}
+
+body.theme-win11 .cal-day.selected .day-gua-count {
+  background: #fff;
+  color: var(--c-navy);
+}
+
+body.theme-win11 .cal-sidebar .cal-side-panel {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body.theme-win11 .cal-side-head {
+  background: #f6f6f6;
+  border-bottom: 1px solid #ececec;
+  box-shadow: none;
+  border-radius: 8px 8px 0 0;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .month-gua-item {
+  border-radius: 6px;
+}
+
+body.theme-win11 .month-gua-item:hover {
+  background: #eef4fb;
+}
+
+body.theme-win11 .month-gua-item + .month-gua-item {
+  border-top-color: #f0f0f0;
+}
+
+body.theme-win11 .cal-note-panel .cal-note-head,
+body.theme-win11 .cal-note-body h4 {
+  color: var(--c-navy);
+}
+
+/* ---------- 瓜档详情 ---------- */
+body.theme-win11 .gua-detail {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .gua-detail-head {
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  box-shadow: none;
+}
+
+body.theme-win11 .gua-detail-scroll {
+  background: #fff;
+  border-radius: 8px;
+  margin: 4px 6px;
+  border: 1px solid #ececec;
+}
+
+body.theme-win11 .detail-section h3 {
+  color: var(--c-navy);
+  border-bottom-color: #ececec;
+}
+
+body.theme-win11 .gua-actions {
+  background: #f7f7f7;
+  border-top-color: #e6e6e6;
+  box-shadow: none;
+}
+
+/* ---------- 检索器 ---------- */
+body.theme-win11 .search-form {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+}
+
+body.theme-win11 .search-summary {
+  color: #555;
+}
+
+body.theme-win11 .data-table {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+body.theme-win11 .data-row.data-head {
+  background: #f6f6f6;
+  color: #444;
+  box-shadow: none;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+body.theme-win11 .data-row:not(.data-head) {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+body.theme-win11 .data-row:not(.data-head):hover {
+  background: #eef4fb;
+}
+
+body.theme-win11 .data-row:not(.data-head).selected {
+  background: var(--c-navy);
+  color: #fff;
+}
+
+body.theme-win11 mark.search-hit {
+  background: #ffe066;
+  color: #1b1b1b;
+  border-radius: 2px;
+}
+
+body.theme-win11 .data-row.selected mark.search-hit {
+  background: #ffe066;
+  color: #1b1b1b;
+}
+
+/* ---------- 吃瓜笔记 ---------- */
+body.theme-win11 .notes-filter {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+}
+
+body.theme-win11 .notes-filter .filter-btn {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+  min-height: 24px;
+}
+
+body.theme-win11 .notes-filter .filter-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.theme-win11 .notes-filter .filter-btn.active {
+  background: #fff;
+  border-color: #e0e0e0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+body.theme-win11 .notes-list {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body.theme-win11 .notes-item {
+  border-radius: 6px;
+}
+
+body.theme-win11 .notes-item + .notes-item {
+  border-top-color: #f0f0f0;
+}
+
+body.theme-win11 .notes-item:hover {
+  background: #f4f8fd;
+}
+
+body.theme-win11 .notes-item.active {
+  background: var(--c-navy);
+  color: #fff;
+}
+
+body.theme-win11 .notes-editor {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body.theme-win11 .notes-editor-head {
+  background: #f6f6f6;
+  border-bottom: 1px solid #ececec;
+}
+
+body.theme-win11 .notes-editor-actions {
+  border-top-color: #ececec;
+  box-shadow: none;
+}
+
+/* ---------- 随机吃瓜 ---------- */
+body.theme-win11 .random-head {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+}
+
+body.theme-win11 .random-stage {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+body.theme-win11 .random-watermelon {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.16));
+}
+
+body.theme-win11 .random-summary {
+  background: #f6f8fb;
+  border: 1px solid #e5eaf1;
+  border-radius: 8px;
+}
+
+body.theme-win11 .random-draw {
+  min-height: 32px;
+  font-weight: 600;
+}
+
+/* ---------- 资源管理器 / 文件阅读器 ---------- */
+body.theme-win11 .explorer-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .explorer-address {
+  background: #f3f3f3;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+  padding: 5px 8px;
+}
+
+body.theme-win11 .addr-field {
+  height: 28px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: none;
+}
+
+body.theme-win11 .explorer-content {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 5px 6px;
+}
+
+body.theme-win11 .explorer-item {
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+body.theme-win11 .explorer-item:hover {
+  background: #eef4fb;
+}
+
+body.theme-win11 .explorer-item.selected {
+  background: var(--c-navy);
+  border-color: var(--c-navy);
+  color: #fff;
+}
+
+body.theme-win11 .explorer-note {
+  background: #f6f8fb;
+  border: 1px solid #e5eaf1;
+  border-radius: 6px;
+  color: #555;
+}
+
+body.theme-win11 .explorer-info-strip {
+  border-top-color: #ececec;
+  color: #888;
+}
+
+body.theme-win11 .file-viewer-head {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 6px 6px 0;
+}
+
+body.theme-win11 .file-viewer-body {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 5px 6px;
+}
+
+body.theme-win11 .file-viewer-body .file-intro {
+  border-bottom-color: #ececec;
+  color: #555;
+}
+
+body.theme-win11 .nostalgia-list li {
+  color: #333;
+}
+
+/* ---------- 代码时光机 ---------- */
+body.theme-win11 .tm-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .tm-head {
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: none;
+  padding: 10px 10px 8px;
+}
+
+body.theme-win11 .tm-intro-icon {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+}
+
+body.theme-win11 .tm-intro-text h2 {
+  font-size: 14px;
+}
+
+body.theme-win11 .tm-pane {
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+  background: #fff;
+}
+
+body.theme-win11 .tm-pane-head {
+  background: #f6f6f6;
+  border-bottom: 1px solid #ececec;
+  flex-basis: 28px;
+  font-weight: 600;
+}
+
+body.theme-win11 .tm-pane-head .era-badge {
+  border-radius: 4px;
+  background: #5c5c5c;
+  line-height: 16px;
+}
+
+body.theme-win11 .tm-pane.after .tm-pane-head .era-badge {
+  background: #107c10;
+}
+
+body.theme-win11 .tm-code-wrap {
+  background: #fcfcfc;
+}
+
+body.theme-win11 .tm-line-numbers {
+  background: #f6f6f6;
+  border-right: 1px solid #ececec;
+  color: #aaa;
+}
+
+body.theme-win11 .tm-view-btn.active {
+  background: #e8f1fb;
+  border-color: #b7d4f1;
+  box-shadow: none;
+  color: #0f5aa8;
+  font-weight: 600;
+}
+
+body.theme-win11 .tm-foot {
+  color: #999;
+}
+
+/* ---------- 显示属性 ---------- */
+body.theme-win11 .props-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .props-tabs {
+  border-bottom: 1px solid #e2e2e2;
+  padding: 8px 8px 0;
+  gap: 4px;
+}
+
+body.theme-win11 .props-tab {
+  min-height: 26px;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+  padding: 3px 12px;
+  top: 0;
+  color: #333;
+}
+
+body.theme-win11 .props-tab:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.theme-win11 .props-tab.active {
+  background: #fff;
+  border-color: #e2e2e2;
+  border-bottom-color: #fff;
+  box-shadow: none;
+  padding: 3px 12px;
+  font-weight: 600;
+  color: var(--c-navy);
+}
+
+body.theme-win11 .props-body {
+  background: #f7f7f7;
+  padding: 12px;
+}
+
+body.theme-win11 .props-monitor {
+  background: #f3f3f3;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body.theme-win11 .props-monitor-screen {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px #0a0a0a;
+}
+
+body.theme-win11 .props-monitor-stand {
+  background: #e6e6e6;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+body.theme-win11 .wallpaper-list {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: none;
+  padding: 3px;
+}
+
+body.theme-win11 .wallpaper-option {
+  border-radius: 4px;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  padding: 4px 6px;
+  min-height: 0;
+}
+
+body.theme-win11 .wallpaper-option:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.theme-win11 .wallpaper-option.active {
+  background: #e8f1fb;
+  color: #0f5aa8;
+}
+
+body.theme-win11 .wallpaper-thumb {
+  border-radius: 3px;
+  border-color: #d6d6d6;
+}
+
+body.theme-win11 .props-buttons {
+  border-top: 1px solid #e2e2e2;
+  box-shadow: none;
+  padding: 9px 10px 10px;
+}
+
+body.theme-win11 .settings-grid select {
+  height: 26px;
+}
+
+/* ---------- 高级显示属性 ---------- */
+body.theme-win11 .advanced-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .advanced-table {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body.theme-win11 .advanced-table .adv-row {
+  border-bottom-color: #f0f0f0;
+}
+
+body.theme-win11 .advanced-warning {
+  background: #fff4ce;
+  border: 1px solid #f2df9b;
+  border-radius: 8px;
+  color: #6b5200;
+}
+
+body.theme-win11 .advanced-actions {
+  border-top: 1px solid #e2e2e2;
+  box-shadow: none;
+  padding: 9px 10px 10px;
+}
+
+body.theme-win11 .advanced-actions .btn98.time-travel {
+  background: var(--c-navy);
+  color: #fff;
+  border-color: var(--c-navy);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-win11 .advanced-actions .btn98.time-travel:hover {
+  background: #0a72cd;
+}
+
+/* ---------- 1024 特辑 ---------- */
+body.theme-win11 .special-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .special-hero {
+  margin: 6px 6px 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0d3b26, #145c35);
+  box-shadow: none;
+}
+
+body.theme-win11 .special-badge {
+  border-radius: 8px;
+  border: 0;
+  background: #ffe100;
+  box-shadow: none;
+}
+
+body.theme-win11 .special-list-wrap {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 5px 6px;
+}
+
+body.theme-win11 .special-row {
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 4px;
+}
+
+body.theme-win11 .special-row:hover {
+  background: #eef4fb;
+  color: #1b1b1b;
+}
+
+body.theme-win11 .special-row:hover .sr-cat {
+  color: #666;
+}
+
+body.theme-win11 .special-foot {
+  color: #888;
+}
+
+/* ---------- 年度注脚 ---------- */
+body.theme-win11 .annual-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .annual-sheet {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 6px;
+}
+
+body.theme-win11 .annual-year {
+  color: #e3edf8;
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+
+body.theme-win11 .annual-kicker {
+  color: var(--c-navy);
+}
+
+body.theme-win11 .annual-rule {
+  border-top-color: #e6e6e6;
+  border-bottom-color: transparent;
+}
+
+body.theme-win11 .annual-text {
+  color: #333;
+}
+
+body.theme-win11 .annual-foot {
+  border-top-color: #ececec;
+}
+
+/* ---------- 关于 / 帮助 ---------- */
+body.theme-win11 .about-app,
+body.theme-win11 .help-app {
+  background: #f7f7f7;
+}
+
+body.theme-win11 .about-body,
+body.theme-win11 .help-body {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 6px;
+}
+
+body.theme-win11 .about-logo {
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.18));
+  border-radius: 10px;
+}
+
+body.theme-win11 .about-foot,
+body.theme-win11 .help-body .help-note {
+  border-top-color: #ececec;
+  color: #999;
+}
+
+/* ---------- 弹窗 ---------- */
+body.theme-win11 .modal-window {
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f7f7f7;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34), 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+body.theme-win11 .modal-titlebar {
+  height: 34px;
+  padding: 0 4px 0 12px;
+  background: #f7f7f7;
+  color: #1b1b1b;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+body.theme-win11 .modal-title-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+body.theme-win11 .modal-close {
+  width: 30px;
+  height: 26px;
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.theme-win11 .modal-close:hover {
+  background: #c42b1c;
+}
+
+body.theme-win11 .modal-close::before,
+body.theme-win11 .modal-close::after {
+  background: #1b1b1b;
+  left: 11px;
+}
+
+body.theme-win11 .modal-close:hover::before,
+body.theme-win11 .modal-close:hover::after {
+  background: #fff;
+}
+
+body.theme-win11 .modal-body {
+  padding: 22px 20px 14px;
+  background: #fff;
+}
+
+body.theme-win11 .modal-buttons {
+  padding: 10px 16px 16px;
+  background: #f7f7f7;
+}
+
+body.theme-win11 .modal-buttons .btn98 {
+  min-width: 92px;
+}
+
+body.theme-win11 .modal-text {
+  color: #1b1b1b;
+}
+
+body.theme-win11 .dialog-backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* ---------- 右键菜单 ---------- */
+body.theme-win11 .context-menu {
+  min-width: 210px;
+  padding: 5px;
+  background: rgba(247, 247, 247, 0.96);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.26);
+}
+
+body.theme-win11 .context-item {
+  height: 30px;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+body.theme-win11 .context-item:hover:not(.disabled) {
+  background: rgba(0, 0, 0, 0.07);
+  color: #1b1b1b;
+}
+
+body.theme-win11 .context-item:hover:not(.disabled).checked .context-check::before {
+  border-color: var(--c-navy);
+}
+
+body.theme-win11 .context-item.disabled {
+  color: #aaa;
+  text-shadow: none;
+}
+
+body.theme-win11 .context-sep {
+  border-top-color: #e0e0e0;
+  border-bottom-color: transparent;
+}
+
+body.theme-win11 .context-item .context-shortcut {
+  color: #999;
+}
+
+body.theme-win11 .context-item:hover .context-shortcut {
+  color: #666;
+}
+
+/* ---------- 气泡 / toast ---------- */
+body.theme-win11 .balloon {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.97);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
+  color: #1b1b1b;
+  padding: 12px 13px;
+}
+
+body.theme-win11 .balloon::before {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+body.theme-win11 .balloon::after {
+  border-top-color: #fff;
+}
+
+body.theme-win11 .balloon .balloon-close:hover {
+  background: #c42b1c;
+  color: #fff;
+  border-radius: 4px;
+}
+
+body.theme-win11 .toast {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  color: #1b1b1b;
+  padding: 9px 11px;
+}
+
+/* ---------- 关机 / 蓝屏 / 开机 ---------- */
+body.theme-win11 .shutdown-message,
+body.theme-win11 .shutdown-final,
+body.theme-win11 .reboot-button {
+  font-family: var(--font-ui);
+  letter-spacing: 0.2px;
+}
+
+body.theme-win11 .bsod-head {
+  border-radius: 4px;
+}
+
+body.theme-win11 .boot-screen {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(20, 80, 160, 0.5), transparent 60%),
+    #04101f;
+}
+
+/* ---------- Win11 响应式 ---------- */
+@media (max-width: 900px) {
+  body.theme-win11 .taskbar-tray .tray-online-text {
+    display: none;
+  }
+
+  body.theme-win11 .task-button {
+    flex-basis: 110px;
+  }
+
+  .w11-start-menu {
+    width: calc(100vw - 16px);
+    padding: 10px;
+  }
+
+  .w11-start-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  body.theme-win11 .task-button {
+    flex-basis: 44px;
+    padding: 2px 4px;
+  }
+
+  body.theme-win11 .task-button-label {
+    display: none;
+  }
+
+  body.theme-win11 .start-button .start-label {
+    display: none;
+  }
+
+  body.theme-win11 .desktop-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  body.theme-win11 .tray-clock {
+    min-width: 48px;
+    font-size: 10.5px;
+  }
+}
+
+/* ---------- Win98 响应式补充 ---------- */
+@media (max-width: 780px) {
+  .desktop-icons {
+    gap: 6px 14px;
+  }
+
+  .start-menu {
+    width: 226px;
+  }
+
+  .start-submenu {
+    width: 208px;
+  }
+
+  .tray-online-text {
+    display: none;
+  }
+
+  .balloon {
+    width: min(300px, calc(100vw - 28px));
+    right: 14px;
+  }
+
+  .toast-layer {
+    right: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .task-button-label {
+    display: none;
+  }
+
+  .task-button {
+    flex-basis: 42px;
+  }
+
+  .desktop-icon {
+    width: 68px;
+    height: 66px;
+  }
+}

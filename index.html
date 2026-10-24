@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="瓜田98 —— 一台装着互联网吃瓜年鉴的 Windows 98。">
+  <meta name="theme-color" content="#008080">
+  <title>瓜田98 · 互联网吃瓜年鉴</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23008080'/%3E%3Cpath d='M5 22h22L16 6z' fill='%23ff5b6e' stroke='%230b4b1d' stroke-width='3'/%3E%3Ccircle cx='13' cy='19' r='1.6'/%3E%3Ccircle cx='19' cy='18' r='1.6'/%3E%3Ccircle cx='16' cy='22' r='1.6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="booting theme-win98">
+
+  <!-- ============ 开机画面 ============ -->
+  <div id="boot-screen" class="boot-screen" aria-hidden="true">
+    <div class="boot-main">
+      <div class="boot-brand">
+        <div class="boot-flag" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div class="boot-brand-text">
+          <div class="boot-microsoft">Microsoft</div>
+          <div class="boot-windows">Windows<span>98</span></div>
+        </div>
+      </div>
+      <div class="boot-edition">瓜 田 9 8 <em>·</em> 互 联 网 吃 瓜 年 鉴</div>
+      <div class="boot-progress-wrap">
+        <div id="boot-progress" class="boot-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div id="boot-status" class="boot-status">正在加载系统核心文件...</div>
+    </div>
+    <div class="boot-bottom">
+      <span>Copyright © 1981-1998 Microsoft Corp.</span>
+      <span>GUA TIAN EDITION</span>
+    </div>
+  </div>
+
+  <!-- ============ 桌面 ============ -->
+  <div id="desktop" class="desktop" aria-label="Windows 98 桌面">
+    <div id="desktop-icons" class="desktop-icons"></div>
+    <div id="windows-layer" class="windows-layer"></div>
+
+    <!-- 任务栏 -->
+    <div id="taskbar" class="taskbar">
+      <div class="taskbar-main">
+        <button id="start-button" class="start-button" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="start-flag" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="start-label">开始</span>
+        </button>
+        <div class="taskbar-grip" aria-hidden="true"></div>
+        <div id="task-buttons" class="task-buttons" aria-label="已打开的程序"></div>
+      </div>
+      <div class="taskbar-tray">
+        <button id="tray-1024" class="tray-button tray-1024" type="button" title="1024 程序员节特辑" hidden>1024</button>
+        <button id="tray-online" class="tray-button tray-online" type="button" title="瓜田在线：已连接">
+          <span class="tray-online-dot"></span><span class="tray-online-text">在线</span>
+        </button>
+        <button id="tray-sound" class="tray-button tray-sound" type="button" title="音效已关闭，点击开启">
+          <span class="sound-icon" aria-hidden="true"></span>
+        </button>
+        <button id="tray-clock" class="tray-button tray-clock" type="button" title="查看今天的瓜">
+          <span id="clock-time">--:--</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 开始菜单 -->
+    <div id="start-menu" class="start-menu" role="menu" aria-label="开始菜单" hidden></div>
+
+    <!-- Win11 开始菜单 -->
+    <div id="win11-start-menu" class="win11-start-menu" role="menu" aria-label="开始" hidden></div>
+
+    <!-- 右键菜单 -->
+    <div id="context-menu" class="context-menu" role="menu" hidden></div>
+
+    <!-- 气泡提示 -->
+    <div id="balloon" class="balloon" role="status" hidden></div>
+
+    <!-- 轻提示 -->
+    <div id="toast-layer" class="toast-layer" aria-live="polite"></div>
+  </div>
+
+  <!-- ============ 弹窗 / 模态层 ============ -->
+  <div id="dialog-layer" class="dialog-layer"></div>
+
+  <!-- ============ CRT 滤镜层 ============ -->
+  <div id="crt-overlay" class="crt-overlay" aria-hidden="true">
+    <div class="crt-glass"></div>
+    <div class="crt-roll"></div>
+  </div>
+
+  <!-- ============ Win98 / Win11 切换过场 ============ -->
+  <div id="theme-transition" class="theme-transition" aria-hidden="true"></div>
+
+  <!-- ============ 关机画面 ============ -->
+  <div id="shutdown-screen" class="shutdown-screen" aria-hidden="true">
+    <div id="shutdown-message" class="shutdown-message">
+      当年陪你一起熬夜改代码、一起蹲八卦的人，现在还联系吗？<br>
+      <strong>晚安，程序员。</strong>
+    </div>
+    <div id="shutdown-final" class="shutdown-final">
+      <div>现在可以安全地关闭瓜田 98 了。</div>
+      <button id="reboot-button" class="reboot-button" type="button">重新启动</button>
+    </div>
+  </div>
+
+  <!-- ============ 蓝屏彩蛋 ============ -->
+  <div id="bsod-screen" class="bsod-screen" aria-hidden="true">
+    <div class="bsod-inner">
+      <div class="bsod-head">Windows</div>
+      <p>一个致命异常 0E 发生在 0028:C0011E36。当前应用程序将被终止。</p>
+      <p>* 按任意键返回瓜田，继续吃瓜。</p>
+      <p class="bsod-dim">GUA_TIAN_98_EXCEPTION<br>NO_GUA_LEFT_BEHIND</p>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="noscript">瓜田 98 需要 JavaScript 才能开机。请启用后再试。</div>
+  </noscript>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/wm.js"></script>
+  <script src="js/apps.js"></script>
+  <script src="js/apps-tools.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

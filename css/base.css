@@ -1,0 +1,965 @@
+/* ============================================================
+   瓜田98 · 基础层
+   字体、控件、开机、弹窗、CRT、关机、蓝屏
+   ============================================================ */
+:root {
+  --taskbar-h: 30px;
+  --c-gray: #c0c0c0;
+  --c-gray-light: #dfdfdf;
+  --c-gray-mid: #a0a0a0;
+  --c-gray-dark: #808080;
+  --c-black: #000000;
+  --c-white: #ffffff;
+  --c-navy: #000080;
+  --c-navy-bright: #0000a8;
+  --c-navy-soft: #1084d0;
+  --c-teal: #008080;
+  --c-red: #b00000;
+  --c-yellow: #ffffe1;
+  --font-ui: "MS Sans Serif", "Microsoft Sans Serif", "SimSun", "宋体", Tahoma, sans-serif;
+  --font-mono: "Fixedsys", "Consolas", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background: #008080;
+  color: var(--c-black);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.45;
+  cursor: default;
+  user-select: none;
+  -webkit-font-smoothing: none;
+}
+
+body.window-dragging {
+  cursor: move;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--c-black);
+}
+
+button {
+  cursor: default;
+}
+
+input,
+textarea {
+  user-select: text;
+}
+
+img,
+svg {
+  display: block;
+}
+
+a {
+  color: var(--c-navy);
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+::selection {
+  background: var(--c-navy);
+  color: var(--c-white);
+}
+
+.pixel-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+/* Win98 立体边框工具类 */
+.bevel-out {
+  background: var(--c-gray);
+  box-shadow:
+    inset 1px 1px 0 var(--c-white),
+    inset -1px -1px 0 var(--c-black),
+    inset 2px 2px 0 var(--c-gray-light),
+    inset -2px -2px 0 var(--c-gray-dark);
+}
+
+.bevel-in {
+  background: var(--c-white);
+  box-shadow:
+    inset 1px 1px 0 var(--c-gray-dark),
+    inset -1px -1px 0 var(--c-white),
+    inset 2px 2px 0 var(--c-black),
+    inset -2px -2px 0 var(--c-gray-light);
+}
+
+.sep-line {
+  height: 2px;
+  margin: 3px 2px;
+  border-top: 1px solid var(--c-gray-dark);
+  border-bottom: 1px solid var(--c-white);
+}
+
+/* ---------- 经典按钮 ---------- */
+.btn98 {
+  min-height: 23px;
+  min-width: 75px;
+  padding: 2px 12px;
+  border: 0;
+  border-radius: 0;
+  background: var(--c-gray);
+  box-shadow:
+    inset 1px 1px 0 var(--c-white),
+    inset -1px -1px 0 var(--c-black),
+    inset 2px 2px 0 var(--c-gray-light),
+    inset -2px -2px 0 var(--c-gray-dark);
+  color: var(--c-black);
+  white-space: nowrap;
+}
+
+.btn98:hover {
+  background: var(--c-gray);
+}
+
+.btn98:active,
+.btn98.pressed {
+  padding: 3px 11px 1px 13px;
+  box-shadow:
+    inset 1px 1px 0 var(--c-black),
+    inset -1px -1px 0 var(--c-white),
+    inset 2px 2px 0 var(--c-gray-dark),
+    inset -2px -2px 0 var(--c-gray-light);
+}
+
+.btn98:focus-visible {
+  outline: 1px dotted var(--c-black);
+  outline-offset: -5px;
+}
+
+.btn98:disabled {
+  color: var(--c-gray-dark);
+  text-shadow: 1px 1px 0 var(--c-white);
+}
+
+.btn98.default {
+  box-shadow:
+    inset 1px 1px 0 var(--c-white),
+    inset -1px -1px 0 var(--c-black),
+    inset 2px 2px 0 var(--c-gray-light),
+    inset -2px -2px 0 var(--c-gray-dark),
+    0 0 0 1px var(--c-black);
+}
+
+.btn98.small {
+  min-width: 0;
+  min-height: 20px;
+  padding: 1px 8px;
+  font-size: 11px;
+}
+
+.btn98.icon-only {
+  width: 23px;
+  min-width: 23px;
+  padding: 1px;
+  height: 23px;
+}
+
+.btn98.icon-only:active {
+  padding: 2px 0 0 2px;
+}
+
+.btn98.icon-only .pixel-icon {
+  width: 16px;
+  height: 16px;
+  margin: auto;
+}
+
+/* ---------- 输入框 ---------- */
+.field98 {
+  height: 22px;
+  padding: 2px 5px;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: var(--c-white);
+  box-shadow:
+    inset 1px 1px 0 var(--c-gray-dark),
+    inset -1px -1px 0 var(--c-white),
+    inset 2px 2px 0 var(--c-black),
+    inset -2px -2px 0 var(--c-gray-light);
+}
+
+textarea.field98 {
+  height: auto;
+  min-height: 80px;
+  padding: 4px;
+  resize: none;
+  line-height: 1.6;
+}
+
+select.field98 {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='14' height='14' fill='%23c0c0c0'/%3E%3Cpath d='M1 1h14v1H1zM1 1v14h1V1z' fill='%23fff'/%3E%3Cpath d='M15 1v14h-1V1zM1 15h14v-1H1z' fill='%23000'/%3E%3Cpath d='M5 6l3 3 3-3z' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+  background-color: var(--c-white);
+}
+
+input[type="checkbox"].check98,
+input[type="radio"].check98 {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin: 0 4px 0 0;
+  padding: 0;
+  vertical-align: -2px;
+  background: var(--c-white);
+  border: 0;
+  box-shadow:
+    inset 1px 1px 0 var(--c-gray-dark),
+    inset -1px -1px 0 var(--c-white),
+    inset 2px 2px 0 var(--c-black),
+    inset -2px -2px 0 var(--c-gray-light);
+}
+
+input[type="checkbox"].check98:checked {
+  background-color: var(--c-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' shape-rendering='crispEdges'%3E%3Cpath d='M3 7l2 2 1 1 4-5 1 1-5 6-2-2-2-2z' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input[type="radio"].check98 {
+  border-radius: 50%;
+}
+
+input[type="radio"].check98:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='7' cy='7' r='3' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #dfdfdf;
+  background-image:
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%),
+    linear-gradient(45deg, #c0c0c0 25%, transparent 25%, transparent 75%, #c0c0c0 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-gray);
+  border: 1px solid var(--c-black);
+  box-shadow:
+    inset 1px 1px 0 var(--c-white),
+    inset -1px -1px 0 var(--c-gray-dark);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--c-gray);
+}
+
+* {
+  scrollbar-color: #808080 #dfdfdf;
+  scrollbar-width: auto;
+}
+
+/* ---------- 开机画面 ---------- */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 700000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 9vh 8vw 5vh;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(0, 20, 70, 0.45), transparent 55%),
+    #000;
+  color: #fff;
+  transition: opacity 0.55s ease;
+}
+
+body:not(.booting) .boot-screen {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-main {
+  margin-top: 9vh;
+}
+
+.boot-brand {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.boot-flag {
+  width: 74px;
+  height: 62px;
+  position: relative;
+  transform: skewY(-6deg);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+}
+
+.boot-flag i {
+  position: absolute;
+  width: 34px;
+  height: 27px;
+  display: block;
+}
+
+.boot-flag i:nth-child(1) { left: 0; top: 0; background: #ff3b3b; }
+.boot-flag i:nth-child(2) { left: 38px; top: 0; background: #38a33d; }
+.boot-flag i:nth-child(3) { left: 0; top: 31px; background: #2d6dd1; }
+.boot-flag i:nth-child(4) { left: 38px; top: 31px; background: #f4c523; }
+
+.boot-microsoft {
+  font-family: "Arial", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.6px;
+  color: #f3f3f3;
+}
+
+.boot-windows {
+  font-family: "Arial", "MS Sans Serif", sans-serif;
+  font-size: 58px;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.boot-windows span {
+  font-size: 30px;
+  vertical-align: top;
+  letter-spacing: 0;
+  margin-left: 7px;
+  font-weight: 400;
+}
+
+.boot-edition {
+  margin: 27px 0 0 96px;
+  color: #acb8cc;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.boot-edition em {
+  font-style: normal;
+  color: #5a7fba;
+}
+
+.boot-progress-wrap {
+  width: min(390px, 60vw);
+  height: 16px;
+  margin: 38px 0 0 98px;
+  padding: 3px;
+  background: #000;
+  border: 1px solid #5c5c5c;
+  box-shadow: inset 1px 1px 0 #242424;
+}
+
+.boot-progress {
+  width: 0;
+  height: 100%;
+  background-color: #0b7a0b;
+  background-image: repeating-linear-gradient(90deg, #0e8b0e 0 8px, #000 8px 11px);
+  transition: width 0.2s linear;
+}
+
+.boot-status {
+  margin: 10px 0 0 98px;
+  color: #c4cbd8;
+  font-size: 11px;
+  min-height: 16px;
+}
+
+.boot-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid #2f2f2f;
+  color: #737373;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- 弹窗 ---------- */
+.dialog-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 800000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.dialog-layer.show {
+  display: flex;
+}
+
+.dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.modal-window {
+  position: relative;
+  width: min(420px, calc(100vw - 28px));
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  background: var(--c-gray);
+  border: 1px solid var(--c-black);
+  box-shadow:
+    inset 1px 1px 0 var(--c-gray-light),
+    inset -1px -1px 0 var(--c-gray-dark);
+  animation: modal-pop 0.12s steps(2, end);
+}
+
+@keyframes modal-pop {
+  from { transform: translateY(4px); }
+  to { transform: translateY(0); }
+}
+
+.modal-titlebar {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 2px 2px 4px;
+  background: var(--c-navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.modal-titlebar .modal-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.modal-titlebar .modal-title-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.modal-titlebar .modal-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-close {
+  width: 16px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: var(--c-gray);
+  box-shadow:
+    inset 1px 1px 0 var(--c-white),
+    inset -1px -1px 0 var(--c-black);
+  position: relative;
+}
+
+.modal-close:active {
+  box-shadow:
+    inset 1px 1px 0 var(--c-black),
+    inset -1px -1px 0 var(--c-white);
+}
+
+.modal-close::before,
+.modal-close::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 8px;
+  height: 1px;
+  background: #000;
+}
+
+.modal-close::before { transform: rotate(45deg); }
+.modal-close::after { transform: rotate(-45deg); }
+
+.modal-body {
+  display: flex;
+  gap: 14px;
+  padding: 20px 18px 14px;
+  min-height: 95px;
+  overflow: auto;
+  user-select: text;
+}
+
+.modal-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  margin-top: 1px;
+}
+
+.modal-text {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.modal-text .modal-subtext {
+  margin-top: 8px;
+  color: #444;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 14px 14px;
+}
+
+.modal-buttons .btn98 {
+  min-width: 75px;
+}
+
+.modal-window.prompt-window .modal-body {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-window.prompt-window .modal-prompt-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* ---------- 气泡提示 / toast ---------- */
+.balloon {
+  position: fixed;
+  right: 34px;
+  bottom: calc(var(--taskbar-h) + 15px);
+  z-index: 60000;
+  width: 285px;
+  padding: 9px 11px;
+  background: var(--c-yellow);
+  border: 1px solid var(--c-black);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+  font-size: 11px;
+  line-height: 1.62;
+  color: #222;
+  user-select: text;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  right: 26px;
+  bottom: -9px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 9px solid var(--c-yellow);
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  right: 25px;
+  bottom: -11px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid var(--c-black);
+}
+
+.balloon-title {
+  font-weight: 700;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.balloon-title .pixel-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.balloon p {
+  margin: 0;
+}
+
+.balloon .balloon-close {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 13px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 10px;
+}
+
+.balloon .balloon-close:hover {
+  background: var(--c-navy);
+  color: #fff;
+}
+
+.toast-layer {
+  position: fixed;
+  right: 36px;
+  bottom: calc(var(--taskbar-h) + 16px);
+  z-index: 61000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.toast {
+  min-width: 210px;
+  max-width: 330px;
+  padding: 6px 9px;
+  background: var(--c-yellow);
+  border: 1px solid var(--c-black);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.28);
+  font-size: 11px;
+  color: #111;
+  animation: toast-in 0.18s steps(3, end);
+}
+
+.toast.out {
+  animation: toast-out 0.24s steps(3, end) forwards;
+}
+
+.toast strong {
+  display: block;
+  margin-bottom: 1px;
+}
+
+.toast .toast-icon {
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin: 1px 6px 0 0;
+}
+
+@keyframes toast-in {
+  from { transform: translateY(7px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  to { transform: translateY(5px); opacity: 0; }
+}
+
+/* ---------- CRT ---------- */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900000;
+  display: none;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+body.crt-on .crt-overlay {
+  display: block;
+}
+
+body.crt-on #desktop {
+  filter: saturate(0.8) contrast(1.09) brightness(1.03);
+}
+
+body.crt-on .desktop {
+  animation: crt-breathe 7.5s steps(60, end) infinite;
+}
+
+.crt-glass {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.18) 0,
+      rgba(0, 0, 0, 0.18) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  box-shadow:
+    inset 0 0 90px rgba(0, 0, 0, 0.52),
+    inset 0 0 24px rgba(0, 0, 0, 0.28);
+  mix-blend-mode: multiply;
+}
+
+.crt-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, 0.34) 88%, rgba(0, 0, 0, 0.72) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 0, 0, 0.035) 0 1px, rgba(0, 255, 0, 0.02) 1px 2px, rgba(0, 0, 255, 0.035) 2px 3px);
+  border-radius: 1.8% / 2.6%;
+}
+
+.crt-roll {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 13vh;
+  top: -20vh;
+  background: linear-gradient(to bottom, transparent, rgba(210, 245, 255, 0.07), transparent);
+  animation: crt-roll 7s linear infinite;
+}
+
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.012);
+  animation: crt-flicker 0.18s steps(2, end) infinite;
+}
+
+@keyframes crt-roll {
+  from { transform: translateY(0); }
+  to { transform: translateY(135vh); }
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.15; }
+  50% { opacity: 0.55; }
+  100% { opacity: 0.2; }
+}
+
+@keyframes crt-breathe {
+  0%, 100% { filter: saturate(0.8) contrast(1.09) brightness(1.03); }
+  50% { filter: saturate(0.78) contrast(1.1) brightness(1.045); }
+}
+
+/* ---------- 关机 ---------- */
+.shutdown-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 950000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: background-color 2.6s ease, opacity 0.6s ease;
+  text-align: center;
+}
+
+.shutdown-screen.active {
+  opacity: 1;
+  pointer-events: auto;
+  background: #000;
+}
+
+.shutdown-message {
+  max-width: min(560px, 84vw);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 2.1;
+  letter-spacing: 0.4px;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.shutdown-message strong {
+  font-weight: 400;
+  color: #fff;
+}
+
+.shutdown-screen.show-message .shutdown-message {
+  opacity: 1;
+}
+
+.shutdown-screen.message-out .shutdown-message {
+  opacity: 0;
+}
+
+.shutdown-final {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.shutdown-screen.show-final {
+  background: #000;
+}
+
+.shutdown-screen.show-final .shutdown-final {
+  display: block;
+}
+
+.shutdown-screen.show-final .shutdown-message {
+  display: none;
+}
+
+.reboot-button {
+  margin: 20px auto 0;
+  display: block;
+  padding: 6px 15px;
+  color: #bbb;
+  background: #000;
+  border: 1px solid #555;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.reboot-button:hover {
+  color: #fff;
+  border-color: #aaa;
+}
+
+/* ---------- 蓝屏 ---------- */
+.bsod-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 960000;
+  display: none;
+  padding: 8vh 10vw;
+  background: #0000aa;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  cursor: pointer;
+}
+
+.bsod-screen.show {
+  display: block;
+}
+
+.bsod-inner {
+  max-width: 820px;
+}
+
+.bsod-head {
+  display: inline-block;
+  margin-bottom: 28px;
+  padding: 0 10px;
+  background: #c0c0c0;
+  color: #0000aa;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.bsod-screen p {
+  margin-bottom: 22px;
+}
+
+.bsod-dim {
+  color: #9a9aff;
+  font-size: 11px;
+  margin-top: 40px;
+}
+
+/* ---------- 其他 ---------- */
+.noscript {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-mono);
+}
+
+.empty-state {
+  padding: 32px 24px;
+  text-align: center;
+  color: #555;
+  font-size: 12px;
+}
+
+.empty-state .empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  opacity: 0.65;
+}
+
+.error-state {
+  color: #8a0000;
+}
+
+.muted {
+  color: #666;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
